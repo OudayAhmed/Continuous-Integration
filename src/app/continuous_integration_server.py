@@ -8,25 +8,28 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def continuous_integration():
-    return "Test 1"
+def get_continuous_integration():
+    return "Continuous Integration Server"
 
 
 @app.route('/', methods=['POST'])
 def continuous_integration_post():
     dataJSON = request.json
-    if 'pull_request' in dataJSON and (dataJSON['action'] == "opened" or dataJSON['action'] == "reopened"):
+    if 'pull_request' in dataJSON and (dataJSON['action'] == "opened" or dataJSON['action'] == 'synchronize' or dataJSON['action'] == "reopened"):
         repoGitHub = RepoGitHub(dataJSON)
-        repoGitHub.cloneRepo()
-        continuous_integration = ContinuousIntegration(repoGitHub.repo_path)
-        continuous_integration.installRequirements()
-        continuous_integration.staticSyntaxCheck()
-        continuous_integration.testing()
-        repoGitHub.removeRepo()
-        return "Test 2"
+        build_results = BuildResults(repoGitHub)
+        repoGitHub.cloneRepo(build_results.resultFileName)
+        if repoGitHub.isCloned:
+            continuous_integration = ContinuousIntegration(repoGitHub.repo_path, build_results.resultFileName)
+            continuous_integration.installRequirements()
+            if continuous_integration.isRequirementsInstalled:
+                continuous_integration.staticSyntaxCheck()
+                continuous_integration.testing()
+        repoGitHub.removeRepo(build_results.resultFileName)
+        return "Succeeded"
     else:
-        return "Test 3"
+        return "This action is not supported by the server."
 
 
 if __name__ == '__main__':
-    app.run(host="localhost", port=8015, debug=True)
+    app.run(host="localhost", port=8015)
