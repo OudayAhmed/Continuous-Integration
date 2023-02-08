@@ -25,14 +25,14 @@ app.config['MAIL_USE_SSL'] = True
 
 @app.route('/')
 def index():
-    return render_template("home.html")
+    return render_template("index.html")
 
 @app.route('/send_message', methods=['GET', 'POST'])
 def send_message():
     if request.method == "POST":
-        email = request.form['email']
-        subject = request.form['subject']
-        msg = request.form['message']
+        email = "chrvik@kth.se" ## request.form['email'] ## Check git user and get value from dict to set email
+        subject = "Build Results"
+        msg = "Example: 3 of 4 tests completed." ## request.form['message'] ## Read and write the build results as the message
         message = Message(subject, sender="cigroup15vt23@gmail.com", recipients=[email])
         message.body = msg
         mail.send(message)
@@ -40,5 +40,5 @@ def send_message():
         return render_template("results.html", success=success)
 
 
-if __name__ == "__main__":
-    app.run(host='localhost', port=8015)
+if __name__ == '__main__':
+    app.run(host='localhost', port=8015, debug=True)
