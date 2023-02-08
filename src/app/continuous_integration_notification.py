@@ -5,15 +5,22 @@ from continuous_integration import ContinuousIntegration
 from repo_github import RepoGitHub
 import os
 
+team_dict = {}
+team_dict['OudayAhmed'] = "oydddua@gmail.com"
+team_dict['ChristoferVikstroem'] = "christofer.vikstrom@outlook.com"
+team_dict['eliu1217'] = "elin.liu@hotmail.se"
+team_dict['OscarKnowles'] = "Oscar@knowles.se"
+team_dict['Taomyee'] = "yimingju2000@gmail.com"
+
 app = Flask(__name__)
 mail = Mail(app)
+
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_POST'] = 25
+app.config['MAIL_POST'] = 465
 app.config['MAIL_USERNAME'] = "cigroup15vt23@gmail.com"
 app.config['MAIL_PASSWORD'] = "contintg15"
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_ASCII_ATTACHMENTS'] = False
 
 
 @app.route('/')
@@ -34,4 +41,4 @@ def send_message():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8015)
+    app.run(host='localhost', port=8015)
