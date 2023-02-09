@@ -19,12 +19,10 @@ class TestRepoGitHub(TestCase):
         with open("testcases/test_clone_repo_pos.txt", "r") as f:
             dataJSON_str = f.read()
             dataJSON = json.loads(dataJSON_str)
-            print(dataJSON)
             repoGitHub = RepoGitHub(dataJSON)
-            repoGitHub.cloneRepo()
-            # print(repoGitHub.repo_folder_name)
+            repoGitHub.cloneRepo("result.txt")
         self.assertTrue(os.path.isdir(repoGitHub.repo_folder_name))
-        repoGitHub.removeRepo()
+        repoGitHub.removeRepo("result.txt")
 
     def test_clone_repo_neg(self):
         """Negative test for cloning repository
@@ -34,14 +32,12 @@ class TestRepoGitHub(TestCase):
         with open("testcases/test_clone_repo_neg.txt", "r") as f:
             dataJSON_str = f.read()
             dataJSON = json.loads(dataJSON_str)
-            # print(dataJSON)
             repoGitHub = RepoGitHub(dataJSON)
             repo_folder_name_origin = repoGitHub.repo_folder_name
             repoGitHub.repo_folder_name = " "
-            repoGitHub.cloneRepo()
-            # print(repoGitHub.repo_folder_name)
+            repoGitHub.cloneRepo("result.txt")
         self.assertFalse(os.path.isdir(repo_folder_name_origin))
-        repoGitHub.removeRepo()
+        repoGitHub.removeRepo("result.txt")
 
     def test_remove_repo_pos(self):
         """Positive test for removing repository
@@ -52,8 +48,8 @@ class TestRepoGitHub(TestCase):
             dataJSON_str = f.read()
             dataJSON = json.loads(dataJSON_str)
             repoGitHub = RepoGitHub(dataJSON)
-            repoGitHub.cloneRepo()
-            repoGitHub.removeRepo()
+            repoGitHub.cloneRepo("result.txt")
+            repoGitHub.removeRepo("result.txt")
         self.assertFalse(os.path.isdir(repoGitHub.repo_folder_name))
 
     def test_remove_repo_neg(self):
@@ -64,10 +60,10 @@ class TestRepoGitHub(TestCase):
         with open("testcases/test_clone_repo_pos.txt", "r") as f:
             dataJSON = f.read()
             repoGitHub = RepoGitHub(dataJSON)
-            repoGitHub.cloneRepo()
+            repoGitHub.cloneRepo("result.txt")
             wrong_path = " "
             repoGitHub.repo_path_name = wrong_path
-            repoGitHub.removeRepo()
+            repoGitHub.removeRepo("result.txt")
         self.assertTrue(os.path.isdir(repoGitHub.repo_folder_name))
 
 
