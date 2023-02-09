@@ -61,12 +61,12 @@ def continuous_integration_post():
         build_results = BuildResults(repoGitHub)
         repoGitHub.cloneRepo(build_results.resultFileName)
         if repoGitHub.isCloned:
-            continuous_integration = ContinuousIntegration(repoGitHub.repo_path, build_results.resultFileName)
+            continuous_integration = ContinuousIntegration(repoGitHub.repo_path, build_results.resultFileName, repoGitHub.OSPathResults, repoGitHub.OSPathSrc)
             continuous_integration.installRequirements()
             if continuous_integration.isRequirementsInstalled:
                 continuous_integration.staticSyntaxCheck()
                 continuous_integration.testing()
-                send_message(team_dict[repoGitHub.userSender[0]], continuous_integration.isSyntaxCheckingSucceeded, continuous_integration.isTestingSucceeded)
+#                send_message(team_dict[repoGitHub.userSender[0]], continuous_integration.isSyntaxCheckingSucceeded, continuous_integration.isTestingSucceeded)
         repoGitHub.removeRepo(build_results.resultFileName)
         return "Succeeded"
     else:

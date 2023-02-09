@@ -2,6 +2,7 @@ from git import Repo
 import os
 import tempfile
 from git import rmtree
+from sys import platform
 
 
 class RepoGitHub:
@@ -17,9 +18,12 @@ class RepoGitHub:
         self.repo_folder_name = ""
         self.isCloned = False
         self.isRemoved = False
+        self.OSPathResults = ""
+        self.OSPathSrc = ""
+        self.checkOS()
 
     def cloneRepo(self, resultFileName):
-        with open(os.path.join(os.getcwd() + "\\results", resultFileName), 'a') as resultFile:
+        with open(os.path.join(os.getcwd() + self.OSPathResults, resultFileName), 'a') as resultFile:
             resultFile.write(f'1. Cloning the Repo\n')
             resultFile.write("=================================================================================\n")
             if not self.repo_name:
@@ -41,7 +45,7 @@ class RepoGitHub:
                 print(f'{self.repo_name} repo cloning failed.')
 
     def removeRepo(self, resultFileName):
-        with open(os.path.join(os.getcwd() + "\\results", resultFileName), 'a') as resultFile:
+        with open(os.path.join(os.getcwd() + self.OSPathResults, resultFileName), 'a') as resultFile:
             if not self.repo_path:
                 resultFile.write("The repo path is missing.\n\n")
             else:
@@ -51,3 +55,11 @@ class RepoGitHub:
                 print(f'{self.repo_name} repo removing succeeded.')
             else:
                 print(f'{self.repo_name} repo removing failed.')
+
+    def checkOS(self):
+        if platform == "darwin" or platform == "linux" or platform == "linux2":
+            self.OSPathResults = "/results"
+            self.OSPathSrc = "/src"
+        else:
+            self.OSPathResults = "\\results"
+            self.OSPathSrc = "\\src"
