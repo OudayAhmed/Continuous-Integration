@@ -3,12 +3,12 @@ from flask_mail import Mail, Message
 
 from continuous_integration import ContinuousIntegration
 from repo_github import RepoGitHub
-import os
+
 
 team_dict = {}
 team_dict['OudayAhmed'] = "oydddua@gmail.com"
 team_dict['ChristoferVikstroem'] = "christofer.vikstrom@outlook.com"
-team_dict['eliu1217'] = "elin.liu@hotmail.se"
+team_dict['eliu1217'] = "eliu@kth.se"
 team_dict['OscarKnowles'] = "Oscar@knowles.se"
 team_dict['Taomyee'] = "yimingju2000@gmail.com"
 
