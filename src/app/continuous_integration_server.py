@@ -3,10 +3,10 @@ from flask import Flask
 from flask_mail import Mail
 import os
 
-from continuous_integration import ContinuousIntegration
-from continuous_integration_notification import send_message
-from repo_github import RepoGitHub
-from build_results import BuildResults
+from src.app.build_results import BuildResults
+from src.app.continuous_integration import ContinuousIntegration
+from src.app.repo_github import RepoGitHub
+from src.app.continuous_integration_notification import send_message
 
 app = Flask(__name__)
 

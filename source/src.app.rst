@@ -20,6 +20,14 @@ src.app.continuous_integration module
    :undoc-members:
    :show-inheritance:
 
+src.app.continuous_integration_server module
+---------------------------------------------
+
+.. automodule:: src.app.continuous_integration_server
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.app.repo_github module
 ---------------------------
 
