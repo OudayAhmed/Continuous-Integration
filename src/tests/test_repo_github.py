@@ -16,7 +16,7 @@ class TestRepoGitHub(TestCase):
 
         Check whether the function cloneRepo() succeeds to clone the repo to a local directory
         """
-        with open("test_clone_repo_pos.txt", "r") as f:
+        with open("testcases/test_clone_repo_pos.txt", "r") as f:
             dataJSON_str = f.read()
             dataJSON = json.loads(dataJSON_str)
             print(dataJSON)
@@ -31,7 +31,7 @@ class TestRepoGitHub(TestCase):
 
         Check whether the function cloneRepo() fails to clone the repo to a local directory
         """
-        with open("test_clone_repo_neg.txt", "r") as f:
+        with open("testcases/test_clone_repo_neg.txt", "r") as f:
             dataJSON_str = f.read()
             dataJSON = json.loads(dataJSON_str)
             # print(dataJSON)
@@ -48,7 +48,7 @@ class TestRepoGitHub(TestCase):
 
         Check whether the function removeRepo() succeeds to remove the repo from a local directory
         """
-        with open("test_clone_repo_pos.txt", "r") as f:
+        with open("testcases/test_clone_repo_pos.txt", "r") as f:
             dataJSON_str = f.read()
             dataJSON = json.loads(dataJSON_str)
             repoGitHub = RepoGitHub(dataJSON)
@@ -61,7 +61,7 @@ class TestRepoGitHub(TestCase):
 
         Check whether the function removeRepo() fails to remove the repo from a local directory
         """
-        with open("test_clone_repo_pos.txt", "r") as f:
+        with open("testcases/test_clone_repo_pos.txt", "r") as f:
             dataJSON = f.read()
             repoGitHub = RepoGitHub(dataJSON)
             repoGitHub.cloneRepo()
