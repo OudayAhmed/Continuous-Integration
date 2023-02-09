@@ -8,4 +8,4 @@ class BuildResults:
         self.repoGitHub = repoGitHub
         self.dateFileCreated = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
         self.resultFileName = self.dateFileCreated + "_" + repoGitHub.userSender + '.txt'
-        self.resultFile = open(os.path.join(os.getcwd() + "\\results", self.resultFileName), 'x')
+        self.resultFile = open(os.path.join(os.getcwd() + repoGitHub.OSPathResults, self.resultFileName), 'x')
