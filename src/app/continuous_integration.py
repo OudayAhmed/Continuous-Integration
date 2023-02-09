@@ -1,33 +1,67 @@
 import os
+import re
+from sys import platform
+
+import subprocess
 
 
 class ContinuousIntegration:
 
-    def __init__(self, repo_path):
+    def __init__(self, repo_path, resultFileName, pathOSResults, pathOSSrc):
         self.repo_path = repo_path
+        self.resultFileName = resultFileName
+        self.isRequirementsInstalled = False
+        self.isSyntaxCheckingSucceeded = True
+        self.isTestingSucceeded = False
+        self.pathOSResults = pathOSResults
+        self.pathSrc = pathOSSrc
 
     def installRequirements(self):
-        print("=======================================================================")
-        print("=============== 3. Installing the requirements ========================")
-        print("=======================================================================")
-        path_req = self.repo_path + "\\src\\requirements.txt"
-        os.system("pip install -r " + path_req)
-        print(f'The requirements have been successfully installed.')
+
+
+        with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
+            resultFile.write(f'2. Installing the requirements\n')
+            resultFile.write("=================================================================================\n")
+        path_req = self.repo_path + "/src/requirements.txt"
+        if not path_req:
+            with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
+                resultFile.write("The requirements file is missing.\n\n")
+        else:
+            with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
+                subprocess.call("pip install -r " + path_req, shell = True, stdout=resultFile)
+            self.isRequirementsInstalled = True
+        if self.isRequirementsInstalled:
+            print(f'Requirements installing succeeded.')
+        else:
+            print(f'Requirements installing failed.')
 
     def staticSyntaxCheck(self):
-        print("=======================================================================")
-        print("======================== 4. Syntax checking ===========================")
-        print("=======================================================================")
-        print(f'.')
-        path_req = self.repo_path + "\\src"
-        os.system("pylint --disable=W,C,R,E0401 " + path_req)
-        print(f'The syntax checking has been successfully completed.')
+        with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
+            resultFile.write(f'\n2. Syntax checking\n')
+            resultFile.write("=================================================================================\n")
+        with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
+            subprocess.call("pylint --disable=W,C,R,E0401 " + self.repo_path + self.pathSrc, shell = True, stdout=resultFile)
+        with open("results" + ("/" if platform != "win32" else "\\") + self.resultFileName, 'r') as resultFile:
+            result = None
+            for l in resultFile:
+                result = re.search('E\d\d\d\d:', l)
+                if result is not None:
+                    self.isSyntaxCheckingSucceeded = False
+        if self.isSyntaxCheckingSucceeded:
+            print(f'Syntax checking succeeded.')
+        else:
+            print(f'Syntax checking failed.')
 
     def testing(self):
-        print("=======================================================================")
-        print("======================= 5. The testing is running =====================")
-        print("=======================================================================")
-        path_req = self.repo_path
-        print(path_req)
-        os.system("python -m unittest discover " + path_req)
-        print(f'The testing has been successfully completed.')
+        with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
+            resultFile.write(f'3. Testing\n')
+            resultFile.write("=================================================================================\n")
+        with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
+            subprocess.call("python -m unittest discover " + self.repo_path, shell=True, stderr=resultFile)
+        with open("results" + ("/" if platform != "win32" else "\\") + self.resultFileName, 'r') as f:
+            if not ("FAILED" in f.read()):
+                self.isTestingSucceeded = True
+        if self.isTestingSucceeded:
+            print(f'Testing succeeded.')
+        else:
+            print(f'Testing failed.')

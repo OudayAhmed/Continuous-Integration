@@ -69,3 +69,5 @@ class TestRepoGitHub(TestCase):
             repoGitHub.repo_path_name = wrong_path
             repoGitHub.removeRepo()
         self.assertTrue(os.path.isdir(repoGitHub.repo_folder_name))
+
+
