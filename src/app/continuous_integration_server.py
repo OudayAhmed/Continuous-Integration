@@ -1,31 +1,11 @@
 from flask import request
 from flask import Flask
-from flask_mail import Mail
 import os
 
 from continuous_integration import ContinuousIntegration
-from continuous_integration_notification import send_message
 from repo_github import RepoGitHub
-from build_results import BuildResults
 
 app = Flask(__name__)
-
-team_dict = {}
-team_dict['OudayAhmed'] = "oydddua@gmail.com"
-team_dict['ChristoferVikstroem'] = "christofer.vikstrom@outlook.com"
-team_dict['eliu1217'] = "eliu@kth.se"
-team_dict['OscarKnowles'] = "Oscar@knowles.se"
-team_dict['Taomyee'] = "yimingju2000@gmail.com"
-
-app = Flask(__name__)
-mail = Mail(app)
-
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_POST'] = 465
-app.config['MAIL_USERNAME'] = "cigroup15vt23@gmail.com"
-app.config['MAIL_PASSWORD'] = "contintg15"
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
 
 @app.route('/results')
 def get_results():
@@ -66,7 +46,6 @@ def continuous_integration_post():
             if continuous_integration.isRequirementsInstalled:
                 continuous_integration.staticSyntaxCheck()
                 continuous_integration.testing()
-                send_message(team_dict[repoGitHub.userSender[0]], continuous_integration.isSyntaxCheckingSucceeded, continuous_integration.isTestingSucceeded)
         repoGitHub.removeRepo(build_results.resultFileName)
         return "Succeeded"
     else:
