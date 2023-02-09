@@ -4,10 +4,41 @@ import tempfile
 from git import rmtree
 from sys import platform
 
-
+"""RepoGitHub class"""
 class RepoGitHub:
+    """ RepoGitHub class
 
+    :ivar: data: a json file recording the POST request
+    :type: data: dict
+    :ivar: repo_name: the repository name
+    :type: repo_name: string
+    :ivar: branch_name: the branch name
+    :type: branch_name: string
+    :ivar: clone_url: the url of clone repository
+    :type: clone_url: string
+    :ivar: userSender: the user that sends the request
+    :type: userSender: string
+    :ivar: action: the action of the request
+    :type: action: string
+    :ivar: repo_path: the repository path locally
+    :type: repo_path: string
+    :ivar: repo_folder_name: the name of repository folder
+    :type: repo_folder_name: string
+    :ivar: isCloned: whether the repository is cloned
+    :type: isCloned: bool
+    :ivar: isRemoved: whether the repository is removed
+    :type: isRemoved: bool
+    :ivar: OSPathResults: OS path of results folder
+    :type: OSPathResults: string
+    :ivar: OSPathSrc: OS path of src folder
+    :type: OSPathSrc: string
+    """
     def __init__(self, data):
+        """ Initializing the class
+
+        :param data: a json file
+        :type data: dict
+        """
         self.data = data
         self.repo_name = data['pull_request']['head']['repo']['name']
         self.branch_name = data['pull_request']['head']['ref']
@@ -23,6 +54,11 @@ class RepoGitHub:
         self.checkOS()
 
     def cloneRepo(self, resultFileName):
+        """ Clone the repository to the local
+
+        :param resultFileName: the folder name of result files
+        :type resultFileName: string
+        """
         with open(os.path.join(os.getcwd() + self.OSPathResults, resultFileName), 'a') as resultFile:
             resultFile.write(f'1. Cloning the Repo\n')
             resultFile.write("=================================================================================\n")
@@ -45,6 +81,11 @@ class RepoGitHub:
                 print(f'{self.repo_name} repo cloning failed.')
 
     def removeRepo(self, resultFileName):
+        """ Remove the repository from the local
+
+        :param resultFileName: the folder name of result files
+        :type resultFileName: string
+        """
         with open(os.path.join(os.getcwd() + self.OSPathResults, resultFileName), 'a') as resultFile:
             if not self.repo_path:
                 resultFile.write("The repo path is missing.\n\n")
@@ -57,6 +98,9 @@ class RepoGitHub:
                 print(f'{self.repo_name} repo removing failed.')
 
     def checkOS(self):
+        """ Store the path according to different operating systems
+
+        """
         if platform == "darwin" or platform == "linux" or platform == "linux2":
             self.OSPathResults = "/results"
             self.OSPathSrc = "/src"
