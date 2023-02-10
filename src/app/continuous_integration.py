@@ -27,6 +27,17 @@ class ContinuousIntegration:
     """
 
     def __init__(self, repo_path, resultFileName, pathOSResults, pathOSSrc):
+        """ Initializing the object.
+
+        :param repo_path: Path to the project repository locally.
+        :type: repo_path: path
+        :param resultFileName: Name of the result file containing time stamp and person who did pull request.
+        :type: resultFileName: string
+        :param pathOSResults: Path to results folder in OS.
+        :type: pathOSResults: path
+        :param pathOSSrc: Path to source folder in OS.
+        :type: PathOSSrc: path
+        """
         self.repo_path = repo_path
         self.resultFileName = resultFileName
         self.isRequirementsInstalled = False
