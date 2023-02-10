@@ -128,6 +128,5 @@ class ContinuousIntegration:
         email_message.set_content(msg)
         with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=ssl.create_default_context()) as stmp:
             stmp.login(os.environ.get('CI_EMAIL'), os.environ.get('CI_EMAIL_PASSWORD'))
-            # stmp.login('cigroup15vt23@gmail.com', 'bbmgbpjjeyoqvqvx')
             stmp.sendmail('cigroup15vt23@gmail.com', team_dict[userSender], email_message.as_string())
             print("The email notification has been sent")
