@@ -17,9 +17,11 @@ team_dict['eliu1217'] = "eliu@kth.se"
 team_dict['OscarKnowles'] = "Oscar@knowles.se"
 team_dict['Taomyee'] = "yimingju2000@gmail.com"
 
-app = Flask(__name__)
+"""
+Get variables necessary for notification
+* The mailbox is for testing purposes.
+"""
 mail = Mail(app)
-
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_POST'] = 465
 app.config['MAIL_USERNAME'] = "cigroup15vt23@gmail.com"
@@ -29,6 +31,9 @@ app.config['MAIL_USE_SSL'] = True
 
 @app.route('/results')
 def get_results():
+    """
+    Get the page content from the recorded results
+    """
     dir_path = os.getcwd() + "\\results"
     page_content = ""
     numberResults = len(os.listdir(dir_path))
@@ -41,6 +46,9 @@ def get_results():
 
 @app.route('/results/<filename>')
 def get_resultFile(filename):
+    """
+    Record the result of handling requests in the path ./results/filename.
+    """
     content = ""
     with open(os.path.join(os.getcwd() + "\\results", filename), 'r') as resultFile:
         for l in resultFile.readlines():
@@ -50,11 +58,27 @@ def get_resultFile(filename):
 
 @app.route('/')
 def get_continuous_integration():
+    """
+    Indicate it's a continuous integration server.
+    """
     return "Continuous Integration Server"
 
 
 @app.route('/', methods=['POST'])
 def continuous_integration_post():
+    """
+    This function is the endpoint for GitHub webhooks to handle POST request.
+    1. Create a history entry recording the results
+    2. Clone the repository
+    3. Install the requirements.txt
+    4. Syntax checking
+    5. Test on unittests
+    6. Remove the repository
+
+    :return:
+        If the server runs successfully, return "Succeeded"
+        Otherwise, return "This action is not supported by the server."
+    """
     dataJSON = request.json
     if 'pull_request' in dataJSON and (dataJSON['action'] == "opened" or dataJSON['action'] == 'synchronize' or dataJSON['action'] == "reopened"):
         repoGitHub = RepoGitHub(dataJSON)
