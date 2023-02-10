@@ -1,8 +1,12 @@
 import os
 import re
+import smtplib
+import ssl
 from sys import platform
 
 import subprocess
+from email.message import EmailMessage
+
 
 """Continuous Integration"""
 
@@ -96,6 +100,7 @@ class ContinuousIntegration:
 
         :return: Print statement that the testing either failed or succeeded.
         """
+
         if self.resultFileName:
             with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
                 resultFile.write(f'3. Testing\n')
@@ -109,3 +114,23 @@ class ContinuousIntegration:
                 print(f'Testing succeeded.')
             else:
                 print(f'Testing failed.')
+
+    def sendNotification(self, userSender):
+        team_dict = {
+            'OudayAhmed': "oydddua@gmail.com",
+            'ChristoferVikstroem': "christofer.vikstrom@outlook.com",
+            'eliu1217': "eliu@kth.se",
+            'OscarKnowles': "Oscar@knowles.se",
+            'Taomyee': "yimingju2000@gmail.com"
+        }
+        email_message = EmailMessage()
+        email_message['Subject'] = 'Build Results'
+        syntaxCheckingResult = "succeeded" if self.isSyntaxCheckingSucceeded else "failed"
+        testingResult = "succeeded" if self.isTestingSucceeded else "failed"
+        resultDetails = ".\nFor more details: http://localhost:8015/results/" + self.resultFileName
+        msg = "Syntax checking " + syntaxCheckingResult + ".\nTesting " + testingResult + resultDetails
+        email_message.set_content(msg)
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=ssl.create_default_context()) as stmp:
+            stmp.login(os.environ.get('CI_EMAIL'), os.environ.get('CI_EMAIL_PASSWORD'))
+            stmp.sendmail('cigroup15vt23@gmail.com', team_dict[userSender], email_message.as_string())
+            print("The email notification has been sent")
