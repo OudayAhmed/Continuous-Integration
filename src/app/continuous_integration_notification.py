@@ -10,6 +10,10 @@ def index():
 
 @app.route('/send_message', methods=['GET', 'POST'])
 def send_message(email, syntax, testing):
+    """
+    Method to send message through email with with build results to user email
+    :returns: Result of build
+    """
     if request.method == "POST":
         subject = "Build Results."
         msg = str(syntax) + "\n" + str(testing) ## request.form['message'] ## Read and write the build results as the message
