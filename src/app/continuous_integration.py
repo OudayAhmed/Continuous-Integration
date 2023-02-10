@@ -116,6 +116,9 @@ class ContinuousIntegration:
                 print(f'Testing failed.')
 
     def sendNotification(self, userSender):
+        """ Method to send message through email with with build results to user email
+        :return: Results of build
+        """
         team_dict = {
             'OudayAhmed': "oydddua@gmail.com",
             'ChristoferVikstroem': "christofer.vikstrom@outlook.com",
