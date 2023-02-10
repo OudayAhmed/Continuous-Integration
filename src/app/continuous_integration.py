@@ -47,7 +47,10 @@ class ContinuousIntegration:
         self.pathSrc = pathOSSrc
 
     def installRequirements(self):
+        """Method to install all the requirements needed for continuous integration and write results to a file.
 
+        :returns: Print statement that the installation of requirements either failed or succeeded.
+        """
 
         with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
             resultFile.write(f'2. Installing the requirements\n')
@@ -66,6 +69,10 @@ class ContinuousIntegration:
             print(f'Requirements installing failed.')
 
     def staticSyntaxCheck(self):
+        """Method to check if syntax is correct and write the results to a file.
+
+        :return: Print statement that checking the syntax either failed or succeeded.
+        """
         with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
             resultFile.write(f'\n2. Syntax checking\n')
             resultFile.write("=================================================================================\n")
@@ -83,6 +90,10 @@ class ContinuousIntegration:
             print(f'Syntax checking failed.')
 
     def testing(self):
+        """Method to test that the CI server works and write the results to a file.
+
+        :return: Print statement that the testing either failed or succeeded.
+        """
         with open(os.path.join(os.getcwd() + self.pathOSResults, self.resultFileName), 'a') as resultFile:
             resultFile.write(f'3. Testing\n')
             resultFile.write("=================================================================================\n")
