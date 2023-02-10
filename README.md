@@ -14,10 +14,10 @@ The program in this repository is an implementation of a small continuous integr
     - The server sends an email to the project member about the build result. 
 
 ## Installation
-In order to run the code properly, a version of Python >= 3.8 is required.
+In order to run the code properly, a version of Python >= 3.8 (placeholder) is required.
 
 ### Run code and tests
-To run the program, navigate to the src folder, then the app folder, then run this command in the terminal to install the requirements:
+Before you can run the program you need to install the requirements. To do this first navigate to the src folder, then the app folder, and run this command in the terminal:
 
     python3 continuous_integration.py
 
@@ -28,6 +28,10 @@ To troubleshoot any potential requirement installations, the packages could be i
     pip install Flask-Mail
     pip install GitPython
 
+To run the server, navigate to the src folder, then the app folder, and run this command in the terminal:
+
+    python3 continuous_intergration_server.py
+
 
 
 
@@ -37,5 +41,18 @@ To troubleshoot any potential requirement installations, the packages could be i
 - **Yiming Ju**: Yiming has implemented the tests and written documentation for the repo_github.py methods. 
 - **Oscar Knowles**: Oscar has implemented the tests and written documentation for the continuous_integration.py methods and written SEMAT and project documentation (README) together with Christofer and Elin. 
 - **Elin Liu**: Elin was the stakeholder for building and implemententing the Sphinx tests and written SEMAT togheter with Oscar and Christofer.
-- **Christofer Vikström**: Christofer created the code, documentation and tests for the notification system that sends email from the CI server to the team member with the build results. He also created the SEMAT and project documentation (README) together with Oscar. 
+- **Christofer Vikström**: Christofer created the code and documentation for the notification method that sends email from the group dedicated CI gmail to the team member with the build results. He also created the SEMAT and project documentation (README) together with Oscar and Elin. 
+
+
+### Argument 1 for P+:
+Property: Most commits (typically 90%) are linked to an issue describing the feature / commit.
+
+Currently, the requirements regarding commits tracing to issues is fulfilled.
+
+### Argument 2 for P+:
+Property: This history persists even if the server is rebooted. Each build is given a unique URL, that is accessible to get the build information (commit identifier, build date, build logs). One URL exists to list all builds.
+
+All builds are stored in a unique URL that can be found in /results.
+
+
 
