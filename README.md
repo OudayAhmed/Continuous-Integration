@@ -32,6 +32,10 @@ To run the server, navigate to the src folder, then the app folder, and run this
 
     python3 continuous_intergration_server.py
 
+To run the tests, navigate to the src folder, then the test folder. Then run this command in the terminal:
+    
+    python3 -m unittest discover
+
 
 
 
