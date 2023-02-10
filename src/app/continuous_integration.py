@@ -4,8 +4,27 @@ from sys import platform
 
 import subprocess
 
+"""Continuous Integration"""
 
 class ContinuousIntegration:
+    """ Continuous Integration class.
+
+    :ivar: repo_path: Path to the project repository locally.
+    :type: path
+    :ivar: resultFileName: Name of the result file containing date stamp and person who did pull request.
+    :type: string
+    :ivar: isRequirementsInstalled: Check if requirements are installed.
+    :type: boolean
+    :ivar: isSyntaxCheckingSucceeded: Check if the syntax is ok.
+    :type: boolean
+    :ivar: isTestingSucceeded: Check if all tests passed.
+    :type: boolean
+    :ivar: pathOSResults: Path to results folder in OS.
+    :type: path
+    :ivar: pathSrc: Path to source folder in OS.
+    :type: path
+
+    """
 
     def __init__(self, repo_path, resultFileName, pathOSResults, pathOSSrc):
         self.repo_path = repo_path
