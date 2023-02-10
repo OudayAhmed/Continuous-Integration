@@ -90,7 +90,7 @@ def continuous_integration_post():
             if continuous_integration.isRequirementsInstalled:
                 continuous_integration.staticSyntaxCheck()
                 continuous_integration.testing()
-#                send_message(team_dict[repoGitHub.userSender[0]], continuous_integration.isSyntaxCheckingSucceeded, continuous_integration.isTestingSucceeded)
+                continuous_integration.sendNotification(repoGitHub.userSender)
         repoGitHub.removeRepo(build_results.resultFileName)
         return "Succeeded"
     else:
