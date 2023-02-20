@@ -36,7 +36,9 @@ To run the tests, navigate to the src folder, then the test folder. Then run thi
     
     python3 -m unittest discover
 
+To build the documentation with Sphinx, stay in the root directory Continuous Integration. Then run this command in the terminal:
 
+    sphinx-build -b html source build
 
 
 ## Contributions
