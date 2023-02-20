@@ -36,6 +36,9 @@ To run the tests, navigate to the src folder, then the test folder. Then run thi
     
     python3 -m unittest discover
 
+To open the documentation, you can access it by navigating to the following path in the web browser:
+
+    doc/_build/html/index.html
 
 ## Contributions
 

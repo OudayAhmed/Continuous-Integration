@@ -10,7 +10,8 @@ import sys
 
 sys.path.insert(0, os.path.abspath('..'))
 
-project = 'Assignment2-Continuous-Integration'
+
+project = 'Continuous-Integration'
 copyright = '2023, Elin Liu, Ouday Ahmed, Christofer Vikström, Oscar Knowles, Yiming Ju'
 author = 'Elin Liu, Ouday Ahmed, Christofer Vikström, Oscar Knowles, Yiming Ju'
 release = '1.0.0'
@@ -21,9 +22,9 @@ release = '1.0.0'
 extensions = ["sphinx.ext.autodoc", "sphinx.ext.todo", "sphinx.ext.viewcode"]
 
 templates_path = ['_templates']
-exclude_patterns = ["build"]
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-language = 'English'
+
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
