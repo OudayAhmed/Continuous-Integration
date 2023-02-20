@@ -92,7 +92,7 @@ class RepoGitHub:
             else:
                 rmtree(self.repo_path)
                 self.isRemoved = True
-            if self.isCloned:
+            if self.isRemoved:
                 print(f'{self.repo_name} repo removing succeeded.')
             else:
                 print(f'{self.repo_name} repo removing failed.')
